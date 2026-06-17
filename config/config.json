@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "sonanonpoprod-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/sonanonpoprod/SonanonpoprodWebPart.js",
+          "manifest": "./src/webparts/sonanonpoprod/SonanonpoprodWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "SonanonpoprodWebPartStrings": "lib/webparts/sonanonpoprod/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sona-nonpo-prod-client-side-solution",
+    "id": "ab23e9ca-db0d-44b8-8baa-ca482988e732",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.23.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "SonaNonpo_Prod description"
+      },
+      "longDescription": {
+        "default": "SonaNonpo_Prod description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "sona-nonpo-prod Feature",
+        "description": "The feature that activates elements of the sona-nonpo-prod solution.",
+        "id": "3b4b2934-e669-4a96-8091-a96f455cd9f2",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/sona-nonpo-prod.sppkg"
+  }
+}

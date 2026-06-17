@@ -1,0 +1,21 @@
+:global {
+
+  #spCommandBar,
+  #spSiteHeader,
+  #spLeftNav,
+  .ommandBarWrapper,
+  .sp-appBar,
+  #CommentsWrapper {
+    display: none !important;
+  }
+
+  .CanvasZoneSectionContainer {
+    max-width: 100% !important;
+  }
+
+  #mainContainer,
+  #mainContainer * {
+    font-size: 100% !important;
+  }
+
+}
