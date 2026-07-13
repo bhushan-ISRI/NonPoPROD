@@ -602,7 +602,6 @@ const NonPoRequest: React.FC<ISonanonpoprodProps> = (props) => {
           HODName: hodAttr?.attributeTypeUnitDescription === "Piyush Airan" ? "Prince Gupta" : hodAttr?.attributeTypeUnitDescription || "",
           HODEmail: hodemailAttr?.attributeTypeUnitDescription === "piyush.airan@sonacomstar.com" ? "prince.gupta@sonacomstar.com" : hodemailAttr?.attributeTypeUnitDescription || "",
 
-
           // HODName: item.reportingManagerName2 || "",
           // HODEmail: item.reportingManagerEmail2 || ""
         };
