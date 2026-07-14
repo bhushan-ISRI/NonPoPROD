@@ -594,7 +594,42 @@ export const Vouching = (props: ISonanonpoprodProps) => {
                         </div>
                         <div className='col-md-6'>
                             <label className='font'>Amount <span className='Mantorystar'>*</span></label>
-                            <input type='text' className='form-control' onKeyPress={(e) => { if (!/[0-9]/.test(e.key)) { e.preventDefault(); } }} onChange={(e) => { const value = e.target.value.replace(/[^0-9]/g, ""); setVouAmount(value); }} />
+                            {/* <input type='text' className='form-control' onKeyPress={(e) => { if (!/[0-9]/.test(e.key)) { e.preventDefault(); } }} onChange={(e) => { const value = e.target.value.replace(/[^0-9]/g, ""); setVouAmount(value); }} /> */}
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={VouAmount}
+                                onKeyPress={(e) => {
+                                    const value = e.currentTarget.value;
+
+                                    // Allow digits
+                                    if (/[0-9]/.test(e.key)) return;
+
+                                    // Allow only one decimal point
+                                    if (e.key === "." && !value.includes(".")) return;
+
+                                    e.preventDefault();
+                                }}
+                                onChange={(e) => {
+                                    let value = e.target.value;
+
+                                    // Remove invalid characters
+                                    value = value.replace(/[^0-9.]/g, "");
+
+                                    // Allow only one decimal point
+                                    const parts = value.split(".");
+                                    if (parts.length > 2) {
+                                        value = parts[0] + "." + parts.slice(1).join("");
+                                    }
+
+                                    // Limit to 2 decimal places
+                                    if (parts.length === 2) {
+                                        value = parts[0] + "." + parts[1].slice(0, 2);
+                                    }
+
+                                    setVouAmount(value);
+                                }}
+                            />
                             <label className='fonttext'>  { }</label>
                         </div>
                     </div>

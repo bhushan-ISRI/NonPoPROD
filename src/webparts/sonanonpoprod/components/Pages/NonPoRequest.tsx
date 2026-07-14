@@ -476,7 +476,7 @@ const NonPoRequest: React.FC<ISonanonpoprodProps> = (props) => {
         const user = await sp.web.currentUser();
 
         currentUserId.current = user.Id;
-       currentUserEmail.current = user.Email;
+        currentUserEmail.current = user.Email;
         // currentUserEmail.current = "damodar@sonacomstar.com";
 
         // Call after email is available
@@ -511,64 +511,22 @@ const NonPoRequest: React.FC<ISonanonpoprodProps> = (props) => {
         return location.replace(/^re\s+/i, "").trim();
       };
 
-      // const FLOW_URL =
-      //   "https://defaultcb1edbfe8080457d9cae51528f3643.3f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e2bb522aa41443179a72b701b9613471/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=q8b8ADCtK2eKr2f6p3MX7gxmJymPeJbm0mq2M69Rk8E";
+      const FLOW_URL =
+        "https://defaultcb1edbfe8080457d9cae51528f3643.3f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e2bb522aa41443179a72b701b9613471/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=q8b8ADCtK2eKr2f6p3MX7gxmJymPeJbm0mq2M69Rk8E";
 
-      // const fetchPage = async (pageNumber: number) => {
+      const fetchPage = async (pageNumber: number) => {
 
-      //   const response = await fetch(FLOW_URL, {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json"
-      //     },
-      //     body: JSON.stringify({
-      //       PageSize: 500,
-      //       PageNumber: pageNumber
-      //     })
-      //   });
-
-      //   if (!response.ok) {
-      //     throw new Error("Failed to fetch employee data");
-      //   }
-
-      //   return response.json();
-      // };
-       const fetchPage = async (pageNumber: number) => {
-       
-        const username = "0le867nyvalvfo249e6sj4ri";
-        const password = "2mpvr7r19amf7o01hr0qncr861hmtsb7o9ap51hwar72405atj3y73mndkmokg5i";
-
-        const auth = btoa(`${username}:${password}`);
-
-        const responsesevices = await fetch(
-          "https://mservices.zinghr.com/etl/api/v2/Auth/GenerateJWTToken?apiPermission=GEMD",
-          {
-            method: "GET",
-            headers: {
-              "Authorization": `Basic ${auth}`,
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        const ServicedataToken = await responsesevices.json();
-        console.log(ServicedataToken.data);
-
-         const response = await fetch("https://mservices.zinghr.com/etl/api/v2/Employee/GetEmployeeDetails", {
+        const response = await fetch(FLOW_URL, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${ServicedataToken.data}`,
-            "ClientSecret": "2mpvr7r19amf7o01hr0qncr861hmtsb7o9ap51hwar72405atj3y73mndkmokg5i"
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             PageSize: 500,
-            PageNumber: pageNumber,
-          }),
+            PageNumber: pageNumber
+          })
         });
-        // const data = await response.json();
-        // console.log("Employee data:", data);
+
         if (!response.ok) {
           throw new Error("Failed to fetch employee data");
         }
@@ -639,11 +597,10 @@ const NonPoRequest: React.FC<ISonanonpoprodProps> = (props) => {
               locationAttr?.attributeTypeUnitDescription
             ),
           CostCenter: CostCenterAttr?.attributeTypeUnitDescription || "",
-          RMName: item.reportingManagerName ,//=== "Piyush Airan" ? "Prince Gupta": item.reportingManagerName|| "",
-          RMEmail: item.reportingManagerEmail , //=== "piyush.airan@sonacomstar.com"? "prince.gupta@sonacomstar.com": item.reportingManagerEmail|| "",
-          HODName: hodAttr?.attributeTypeUnitDescription,// === "Piyush Airan" ? "Prince Gupta": hodAttr?.attributeTypeUnitDescription || "",
-          HODEmail: hodemailAttr?.attributeTypeUnitDescription ,// === "piyush.airan@sonacomstar.com"? "prince.gupta@sonacomstar.com":  hodemailAttr?.attributeTypeUnitDescription|| "",
-
+          RMName: item.reportingManagerName === "Piyush Airan" ? "Prince Gupta" : item.reportingManagerName || "",
+          RMEmail: item.reportingManagerEmail === "piyush.airan@sonacomstar.com" ? "prince.gupta@sonacomstar.com" : item.reportingManagerEmail || "",
+          HODName: hodAttr?.attributeTypeUnitDescription === "Piyush Airan" ? "Prince Gupta" : hodAttr?.attributeTypeUnitDescription || "",
+          HODEmail: hodemailAttr?.attributeTypeUnitDescription === "piyush.airan@sonacomstar.com" ? "prince.gupta@sonacomstar.com" : hodemailAttr?.attributeTypeUnitDescription || "",
 
           // HODName: item.reportingManagerName2 || "",
           // HODEmail: item.reportingManagerEmail2 || ""
@@ -1363,14 +1320,36 @@ const NonPoRequest: React.FC<ISonanonpoprodProps> = (props) => {
     }
   };
 
+  // const recalcTotal = (
+  //   vals: INonPoFormValues,
+  //   overrides?: Partial<Pick<INonPoFormValues, "Basicamount" | "GST" | "OtherCharges">>
+  // ): string => {
+  //   const basic = safeNum((overrides?.Basicamount ?? vals.Basicamount) as string);
+  //   const gst = safeNum((overrides?.GST ?? vals.GST) as string);
+  //   const other = safeNum((overrides?.OtherCharges ?? vals.OtherCharges) as string);
+  //   return String(basic + gst + other);
+  // };
+
   const recalcTotal = (
     vals: INonPoFormValues,
     overrides?: Partial<Pick<INonPoFormValues, "Basicamount" | "GST" | "OtherCharges">>
   ): string => {
-    const basic = safeNum((overrides?.Basicamount ?? vals.Basicamount) as string);
-    const gst = safeNum((overrides?.GST ?? vals.GST) as string);
-    const other = safeNum((overrides?.OtherCharges ?? vals.OtherCharges) as string);
-    return String(basic + gst + other);
+
+    const basic = Math.round(
+      safeNum((overrides?.Basicamount ?? vals.Basicamount) as string) * 100
+    );
+
+    const gst = Math.round(
+      safeNum((overrides?.GST ?? vals.GST) as string) * 100
+    );
+
+    const other = Math.round(
+      safeNum((overrides?.OtherCharges ?? vals.OtherCharges) as string) * 100
+    );
+
+    const total = (basic + gst + other) / 100;
+
+    return total.toFixed(2);
   };
 
   const handleAmountChange = (name: "Basicamount" | "GST" | "OtherCharges") =>
@@ -1390,8 +1369,19 @@ const NonPoRequest: React.FC<ISonanonpoprodProps> = (props) => {
       }
 
       const cleaned = raw.replace(/[^\d.]/g, "");
+      // Allow only one decimal point and maximum 2 digits after decimal
+      let normalized = cleaned;
+
+      if (!/^\d*\.?\d{0,2}$/.test(cleaned)) {
+        return; // Ignore invalid input
+      }
+
+
       const parts = cleaned.split(".");
-      const normalized = parts.length > 2 ? `${parts[0]}.${parts.slice(1).join("")}` : cleaned;
+      if (parts.length > 2) {
+        normalized = `${parts[0]}.${parts[1]}`;
+      }
+      // const normalized = parts.length > 2 ? `${parts[0]}.${parts.slice(1).join("")}` : cleaned;
 
       f.setFieldValue(name, normalized, false);
 
